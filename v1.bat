@@ -1,43 +1,51 @@
 @echo off
-:: ================= FORCE CMD SAFELY =================
-if defined PSModulePath cmd /c "%~f0" & exit /b
+:: =====================================================
+:: INVIX LIVE V1 – FINAL STABLE BUILD
+:: PowerShell + CMD Compatible | No Auto-Close | Admin Safe
+:: =====================================================
 
+:: ---------- FORCE CMD (SAFE) ----------
+if defined PSModulePath (
+    cmd /k "%~f0"
+    exit /b
+)
+
+:: ---------- INIT ----------
 setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 >nul
-title INVIX LIVE - CORE ENGINE v1
+title INVIX LIVE – CORE ENGINE V1
 color 0A
 mode con cols=120 lines=35
 
-:: ================= ADMIN CHECK =================
+:: ---------- ADMIN CHECK ----------
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     cls
     color 0C
     echo ======================================================
-    echo   [ERROR] ADMINISTRATOR PRIVILEGES REQUIRED
+    echo   ERROR: ADMINISTRATOR PRIVILEGES REQUIRED
     echo ======================================================
-    echo   Right-click PowerShell and choose:
-    echo   "Run as Administrator"
+    echo   Please run PowerShell or CMD as ADMIN.
     echo ======================================================
     pause
     exit /b
 )
 
-:: ================= BOOT SEQUENCE =================
+:: ---------- BOOT SEQUENCE ----------
 cls
 echo ======================================================
-echo        INVIX LIVE - CORE ENGINE v1
+echo            INVIX LIVE CORE ENGINE
 echo ======================================================
-echo Initializing system...
+echo Initializing kernel...
 timeout /t 1 >nul
 echo Loading modules...
 timeout /t 1 >nul
-echo Verifying environment...
+echo Verifying system...
 timeout /t 1 >nul
 echo Status : OK
 timeout /t 1 >nul
 
-:: ================= AUTH =================
+:: ---------- AUTH ----------
 :LOGIN
 cls
 color 0A
@@ -52,8 +60,8 @@ if /I "%PASS%"=="inviX2026" goto AUTH_OK
 :: ---- FAIL ----
 color 0C
 cls
-echo [ ACCESS DENIED ]
-echo Invalid key. Try again.
+echo ACCESS DENIED
+echo Invalid access key.
 timeout /t 2 >nul
 goto LOGIN
 
@@ -61,38 +69,36 @@ goto LOGIN
 :AUTH_OK
 color 0A
 cls
-echo [ ACCESS GRANTED ]
+echo ACCESS GRANTED
 echo Privilege Level : ADMIN
 echo Engine Status  : ONLINE
 timeout /t 2 >nul
 
-:: ================= MAIN =================
+:: ---------- MAIN ----------
 cls
 echo ======================================================
-echo            INVIX LIVE ENGINE READY
+echo           INVIX LIVE ENGINE READY
 echo ======================================================
-echo User : %USERNAME%
+echo USER : %USERNAME%
 echo PC   : %COMPUTERNAME%
 echo ======================================================
 echo.
 echo Press ENTER to continue...
 pause >nul
 
-:: ===== CALL YOUR OPTIMIZER / MODULE HERE =====
-:: Example:
+:: ===== CALL YOUR MAIN TOOL HERE =====
 :: call InvixLive_Optimizer.bat
 
-goto EXIT_ENGINE
-
-:: ================= EXIT =================
-:EXIT_ENGINE
+:: ---------- EXIT ----------
 cls
 color 0E
 echo ======================================================
-echo        INVIX LIVE ENGINE SHUTDOWN
+echo           ENGINE SHUTDOWN
 echo ======================================================
-echo Releasing resources...
+echo Cleaning up...
 timeout /t 1 >nul
-echo Session closed safely.
-timeout /t 1 >nul
+echo Done.
+echo.
+echo Press any key to exit...
+pause >nul
 exit

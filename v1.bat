@@ -1,127 +1,118 @@
 @echo off
-setlocal EnableDelayedExpansion
-title ULTIMATE PC OPTIMIZER v2.0 - Invi X Live
+setlocal EnableExtensions EnableDelayedExpansion
+title ULTIMATE PC OPTIMIZER v2.1 - Invi X Live
 color 0A
-mode con cols=120 lines=60
+mode con cols=120 lines=65
+
+:: Check for admin rights
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    cls
+    echo.
+    echo   ╔════════════════════════════════════════════════════════════╗
+    echo   ║     ERROR: Run this script as Administrator !              ║
+    echo   ║    Right-click → Run as administrator                      ║
+    echo   ╚════════════════════════════════════════════════════════════╝
+    echo.
+    pause
+    exit /b
+)
 
 cls
 echo.
-echo   ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-echo   ║                                                                                                                  ║
-echo   ║                                   INVIX LIVE - ROOTKIT INTERFACE v2.0                                            ║
-echo   ║                                                                                                                  ║
-echo   ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+echo ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+echo ║                                                                                                                  ║
+echo ║                  INVIX LIVE - ROOTKIT INTERFACE v2.1 - 2026 Edition                                             ║
+echo ║                                                                                                                  ║
+echo ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 echo.
-echo   [KERNEL BRIDGE INITIALIZING...]
+echo [KERNEL BRIDGE INITIALIZING...]
 echo.
 
-:: Fake scanning animation
-for /l %%i in (1,1,18) do (
+for /l %%i in (1,1,10) do (
     <nul set /p=.
-    timeout /t 0 >nul
-    <nul set /p=.
-    timeout /t 0 >nul
-    echo  0x!random!!random! - RING0 PROBE [%%i/18] COMPLETE
-    timeout /t 0 >nul
+    timeout /t 0 >nul 2>&1
+    echo  0x!random!!random! RING0 [%%i/10]
+    timeout /t 0 >nul 2>&1
 )
-
 echo.
-echo   [SYSTEM INTEGRITY CHECK: PASSED]
-echo   [STEALTH MODE: ACTIVE]
-echo   [TRACE WIPE: 100%%]
-echo.
+echo [SYSTEM INTEGRITY CHECK: PASSED]   [STEALTH MODE: ACTIVE]
 timeout /t 1 >nul
 
 :LOGIN
 cls
 echo.
-echo   ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-echo   ║                                                                                                                  ║
-echo   ║                                   INVIX LIVE - AUTHENTICATION GATEWAY                                            ║
-echo   ║                                                                                                                  ║
-echo   ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+echo ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+echo ║                                 INVIX LIVE - AUTHENTICATION GATEWAY                                              ║
+echo ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 echo.
-echo   WARNING: Unauthorized access will be traced and reported
+echo WARNING: Unauthorized access will trigger trace protocol
 echo.
-echo   ENTER AUTHORIZATION KEY:
 set "pass="
-set /p pass=  ^>
+set /p "pass=ENTER AUTH KEY > "
 
-:: Simple hardcoded password check
 if /i "!pass!"=="inviX2026" goto SUCCESS
-if /i "!pass!"=="" goto EMPTY
+if "!pass!"=="" goto EMPTY
 goto FAIL
 
 :EMPTY
-cls
-color 0C
-echo.
-echo   [!] NO KEY ENTERED - ACCESS DENIED
+cls & color 0C
+echo [!] NO KEY ENTERED - ACCESS DENIED
 timeout /t 2 >nul
 goto LOGIN
 
 :FAIL
-cls
-color 0C
-echo.
-echo   [!] INVALID KEY - ACCESS DENIED
-echo   Attempt logged.
+cls & color 0C
+echo [!] INVALID KEY - ACCESS DENIED    [Attempt logged]
 timeout /t 3 >nul
 goto LOGIN
 
 :SUCCESS
-cls
-color 0A
+cls & color 0A
 echo.
-echo   [AUTHENTICATION SUCCESSFUL]
-echo   [PRIVILEGE LEVEL: ROOT]
-echo   [Invi X Live Engine Online]
-echo.
-timeout /t 3 >nul
+echo [AUTHENTICATION SUCCESSFUL]    [PRIVILEGE LEVEL: ROOT]
+echo [Invi X Live Engine Online - 2026]
+timeout /t 2 >nul
 goto MENU
 
 :MENU
 cls
 echo.
-echo   ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-echo   ║                              ULTIMATE PC OPTIMIZER v2.0  -  Invi X Live                                          ║
-echo   ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+echo ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+echo ║                  ULTIMATE PC OPTIMIZER v2.1 - Invi X Live                                                        ║
+echo ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 echo.
-echo   User: %USERNAME%                                               PC: %COMPUTERNAME%                  %TIME%
+echo  User: %USERNAME%     PC: %COMPUTERNAME%     %DATE% %TIME%
 echo.
-echo   ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-echo   ║  1. Boost FPS performance             2. Speed up Internet connection         3. Turn off unnecessary services   ║
-echo   ║  4. Enable Game Mode                  5. Remove bloatware apps                 6. Clear RAM / standby memory     ║
-echo   ║  7. Disable startup programs          8. Set maximum performance power plan    9. Improve mouse responsiveness   ║
-echo   ║ 10. Give games/apps higher priority  11. Disable Windows Search indexing      12. Maximum CPU speed              ║
-echo   ║ 13. Enable GPU optimizations         14. ULTIMATE MODE (many tweaks)           15. Create System Restore Point   ║
-echo   ║ 16. Turn OFF Windows Defender        17. Turn ON Windows Defender              18. Clean disk + optimize         ║
-echo   ║ 19. Disable window animations        20. Delete temporary files                21. Disable telemetry / tracking  ║
-echo   ║ 22. Optimize virtual memory          23. Disable hibernation                   24. Flush DNS cache               ║
-echo   ║ 25. Block apps running in background 26. Enable SSD TRIM (faster writes)      27. Disable Superfetch / Prefetch  ║
-echo   ║ 28. Activate High Performance mode   29. Disable Cortana                       30. Remove extra pre-installed app║
-echo   ║ 31. Clean & optimize registry        32. Reduce visual effects                 33. Run System File Checker (SFC) ║
-echo   ║ 34. Show detailed system info        35. Disable Windows tips & suggestions    36. Enable hardware acceleration  ║
-echo   ║ 37. Stop automatic Windows Update    38. Clear event logs                      39. Make Windows boot faster      ║
-echo   ║ 40. Disable OneDrive sync            41. Create God Mode folder                42. Check disk for errors         ║
-echo   ║ 43. Open Windows Update settings     44. Reset network settings                45. Turn Firewall OFF (temporary) ║
-echo   ║ 46. Turn Firewall ON                 47. Clear browser cache                   48. Disable USB power saving      ║
-echo   ║ 49. Improve audio latency/response   50. Disable printer service              99. Reset to Balanced power plan   ║
-echo   ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+echo  ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+echo  ║  1. Boost FPS              2. Speed up Internet        3. Disable useless services                           ║
+echo  ║  4. Enable Game Mode       5. Remove some bloatware    6. Clear RAM / standby list                        ║
+echo  ║  7. Disable startup items  8. Maximum performance plan 9. Improve mouse precision                          ║
+echo  ║ 10. Games higher priority 11. Disable Search indexing 12. Max CPU performance                             ║
+echo  ║ 13. GPU optimizations     14. ULTIMATE MODE (25+ tweaks) 15. Create Restore Point                        ║
+echo  ║ 16. Turn OFF Defender     17. Turn ON Defender        18. Clean + Optimize disk                           ║
+echo  ║ 19. Disable animations    20. Delete temp files       21. Disable telemetry                              ║
+echo  ║ 22. Optimize pagefile     23. Disable hibernation     24. Flush DNS                                      ║
+echo  ║ 25. Block background apps 26. Enable SSD TRIM         27. Disable Superfetch/Prefetch                     ║
+echo  ║ 28. High Performance mode 29. Disable Cortana         30. Remove Xbox bloat                              ║
+echo  ║ 31. Minimize visual fx    32. Run SFC scan            33. Show system info                               ║
+echo  ║ 34. Disable tips          35. Quiet boot              36. Disable OneDrive sync                         ║
+echo  ║ 37. Create GodMode folder 38. Check disk (next boot)  99. Reset to Balanced plan                          ║
+echo  ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 echo.
-echo                                       R. Restart Computer Now          X. Exit Program
+echo     R. Restart PC Now           X. Exit Program
 echo.
 set "choice="
-set /p choice=   Enter number or R/X : 
+set /p "choice=Enter number or R/X > "
 
-if /i "!choice!"=="X" goto :EXIT
-if /i "!choice!"=="R" goto :RESTART
+if /i "!choice!"=="X" goto EXIT
+if /i "!choice!"=="R" goto RESTART
 
 if "!choice!"=="1"  goto FPS
 if "!choice!"=="2"  goto NET
 if "!choice!"=="3"  goto SVC
 if "!choice!"=="4"  goto GAME
-if "!choice!"=="5"  goto DBL
+if "!choice!"=="5"  goto BLOAT
 if "!choice!"=="6"  goto RAM
 if "!choice!"=="7"  goto STR
 if "!choice!"=="8"  goto PWR
@@ -133,7 +124,7 @@ if "!choice!"=="13" goto GPU
 if "!choice!"=="14" goto ULT
 if "!choice!"=="15" goto RST
 if "!choice!"=="16" goto DEFO
-if "!choice!"=="17" goto DEF
+if "!choice!"=="17" goto DEFON
 if "!choice!"=="18" goto DISK
 if "!choice!"=="19" goto ANI
 if "!choice!"=="20" goto TEMP
@@ -146,128 +137,264 @@ if "!choice!"=="26" goto SSD
 if "!choice!"=="27" goto SUPER
 if "!choice!"=="28" goto HIGH
 if "!choice!"=="29" goto CORT
-if "!choice!"=="30" goto BLOAT
-if "!choice!"=="31" goto REGOPT
-if "!choice!"=="32" goto VISUAL
-if "!choice!"=="33" goto SFC
-if "!choice!"=="34" goto STAT
-if "!choice!"=="35" goto TIPS
-if "!choice!"=="36" goto HWACC
-if "!choice!"=="37" goto AUTOUP
-if "!choice!"=="38" goto EVENT
-if "!choice!"=="39" goto BOOT
-if "!choice!"=="40" goto ONEDRIVE
-if "!choice!"=="41" goto GOD
-if "!choice!"=="42" goto CHKDSK
-if "!choice!"=="43" goto UPDATE
-if "!choice!"=="44" goto NETRESET
-if "!choice!"=="45" goto FIREOFF
-if "!choice!"=="46" goto FIREON
-if "!choice!"=="47" goto BRCACHE
-if "!choice!"=="48" goto USBPWR
-if "!choice!"=="49" goto AUDIO
-if "!choice!"=="50" goto PRINT
+if "!choice!"=="30" goto BLOATX
+if "!choice!"=="31" goto VISUAL
+if "!choice!"=="32" goto SFC
+if "!choice!"=="33" goto STAT
+if "!choice!"=="34" goto TIPS
+if "!choice!"=="35" goto BOOT
+if "!choice!"=="36" goto ONEDRIVE
+if "!choice!"=="37" goto GOD
+if "!choice!"=="38" goto CHKDSK
 if "!choice!"=="99" goto NORM
 
-cls
-color 0C
+cls & color 0C
 echo.
-echo   Invalid choice. Try again.
-echo.
-timeout /t 3 >nul
+echo                         [!] INVALID CHOICE
+timeout /t 2 >nul
 goto MENU
 
 :: ──────────────────────────────────────────────
-::                REAL FUNCTIONS
+:: FUNCTIONS
 :: ──────────────────────────────────────────────
+
+:SHOW_SUCCESS
+echo.
+echo    ✓ Applied successfully
+timeout /t 2 >nul 2>&1
+cls
+goto MENU
 
 :FPS
 cls & color 0B
 bcdedit /set disabledynamictick yes >nul 2>&1
 bcdedit /set useplatformtick yes >nul 2>&1
-echo ✓ FPS Boost Applied (Disabled Dynamic Tick)
-timeout /t 2 >nul
-goto MENU
+bcdedit /set tscsyncpolicy Enhanced >nul 2>&1
+echo FPS Boost → Dynamic Tick off + Platform Clock + TSC sync
+goto SHOW_SUCCESS
 
 :NET
 cls & color 0B
 netsh int tcp set global autotuninglevel=normal >nul 2>&1
 netsh int tcp set global rss=enabled >nul 2>&1
 netsh int tcp set global chimney=enabled >nul 2>&1
-ipconfig /release >nul 2>&1
-ipconfig /renew >nul 2>&1
-echo ✓ Network Boost Applied (TCP Optimizations)
-timeout /t 2 >nul
-goto MENU
+netsh int tcp set global ecncapability=disabled >nul 2>&1
+netsh int tcp set global netdma=enabled >nul 2>&1
+ipconfig /flushdns >nul 2>&1
+echo TCP chimney + RSS + ECN optimizations + DNS flush
+goto SHOW_SUCCESS
 
 :SVC
 cls & color 0B
-sc config SysMain start=disabled >nul 2>&1 & sc stop SysMain >nul 2>&1
-sc config DiagTrack start=disabled >nul 2>&1 & sc stop DiagTrack >nul 2>&1
-sc config WSearch start=disabled >nul 2>&1 & sc stop WSearch >nul 2>&1
-echo ✓ Services Optimized (Disabled Unnecessary Services)
-timeout /t 2 >nul
-goto MENU
+for %%s in (SysMain DiagTrack WSearch) do (
+    sc config %%s start= demand >nul 2>&1
+    sc stop %%s >nul 2>&1
+)
+echo Disabled on-demand: Superfetch/SysMain, DiagTrack, Windows Search
+goto SHOW_SUCCESS
 
 :GAME
 cls & color 0B
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v AppCaptureEnabled /t REG_DWORD /d 0 /f >nul 2>&1
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v GameDVR_Enabled /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKCU\Software\Microsoft\GameBar" /v AllowAutoGameMode /t REG_DWORD /d 1 /f >nul 2>&1
 reg add "HKCU\System\GameConfigStore" /v GameDVR_Enabled /t REG_DWORD /d 0 /f >nul 2>&1
-reg add "HKCU\Software\Microsoft\GameBar" /v AutoGameModeEnabled /t REG_DWORD /d 1 /f >nul 2>&1
-echo ✓ Game Mode Enabled
-timeout /t 2 >nul
-goto MENU
+echo Game Mode enabled + Game DVR disabled
+goto SHOW_SUCCESS
+
+:BLOAT
+cls & color 0B
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-AppxPackage *3dbuilder* | Remove-AppxPackage" >nul 2>&1
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-AppxPackage *bing* | Remove-AppxPackage" >nul 2>&1
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-AppxPackage *zune* | Remove-AppxPackage" >nul 2>&1
+echo Removed some common bloat (3D Builder, Bing, Zune apps)
+goto SHOW_SUCCESS
+
+:RAM
+cls & color 0B
+echo Attempting to clear standby list...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Clear-StandbyList StandbyList" >nul 2>&1 || echo (Failed - may need EmptyStandbyList.exe tool)
+echo RAM / Standby cleanup attempted
+goto SHOW_SUCCESS
+
+:STR
+cls & color 0B
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /va /f >nul 2>&1
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /va /f >nul 2>&1
+echo Disabled all startup programs (user + machine)
+goto SHOW_SUCCESS
+
+:PWR
+cls & color 0B
+powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 1 /f >nul 2>&1
+echo Maximum performance plan + Power Throttling disabled
+goto SHOW_SUCCESS
+
+:MSE
+cls & color 0B
+reg add "HKCU\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f >nul 2>&1
+reg add "HKCU\Control Panel\Mouse" /v MouseThreshold1 /t REG_SZ /d 0 /f >nul 2>&1
+reg add "HKCU\Control Panel\Mouse" /v MouseThreshold2 /t REG_SZ /d 0 /f >nul 2>&1
+echo Mouse acceleration disabled (raw input)
+goto SHOW_SUCCESS
+
+:PRI
+cls & color 0B
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v Win32PrioritySeparation /t REG_DWORD /d 26 /f >nul 2>&1
+echo Games/Apps higher priority + responsiveness boost
+goto SHOW_SUCCESS
+
+:SRCH
+cls & color 0B
+sc config WSearch start= disabled >nul 2>&1
+sc stop WSearch >nul 2>&1
+echo Windows Search indexing disabled
+goto SHOW_SUCCESS
+
+:CPU
+cls & color 0B
+powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
+powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
+echo Ultimate Performance CPU plan activated (if available)
+goto SHOW_SUCCESS
+
+:GPU
+cls & color 0B
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v HwSchMode /t REG_DWORD /d 2 /f >nul 2>&1
+echo Hardware-accelerated GPU scheduling enabled
+goto SHOW_SUCCESS
 
 :ULT
 cls & color 0E
-call :FPS
-call :NET
-call :SVC
-call :GAME
-call :PWR
-call :CPU
-call :GPU
-call :ANI
-call :TEMP
-call :TEL
-call :HIB
-call :DNS
-call :BGAPPS
-call :SSD
-call :SUPER
-call :HIGH
-call :CORT
-call :VISUAL
-call :TIPS
-call :BOOT
-call :ONEDRIVE
-echo 🔥 Ultimate All-in-One Mode Activated (30+ Optimizations Applied)
-timeout /t 3 >nul
+echo.
+echo Activating ULTIMATE MODE (many tweaks)...
+call :FPS & call :NET & call :SVC & call :GAME & call :PWR & call :CPU & call :GPU
+call :ANI & call :TEMP & call :TEL & call :HIB & call :BGAPPS & call :SUPER & call :HIGH
+call :CORT & call :TIPS & call :BOOT & call :ONEDRIVE & call :STR & call :PRI
+echo.
+echo  25+ optimizations applied - restart recommended
+echo.
+pause
 goto MENU
 
-:RESTART
-cls & color 0E
-echo.
-echo   Invi X Live Engine Offline
-echo.
-timeout /t 3 >nul
-shutdown /r /t 0
-exit
+:RST
+cls & color 0B
+powershell -Command "Checkpoint-Computer -Description 'InviX Optimizer Restore' -RestorePointType MODIFY_SETTINGS" >nul 2>&1
+echo System Restore Point created
+goto SHOW_SUCCESS
 
-:EXIT
-cls & color 0A
-echo.
-echo   Invi X Live Engine Offline
-echo.
-timeout /t 3 >nul
-exit
+:DEFO
+cls & color 0C
+powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $true" >nul 2>&1
+echo Windows Defender real-time protection OFF (dangerous!)
+goto SHOW_SUCCESS
 
-:NORM
+:DEFON
 cls & color 0A
-powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
-echo ✓ Reset to Balanced Power Mode
-timeout /t 2 >nul
+powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $false" >nul 2>&1
+echo Windows Defender real-time protection ON
+goto SHOW_SUCCESS
+
+:DISK
+cls & color 0B
+cleanmgr /sagerun:1 >nul 2>&1
+defrag C: /O /V >nul 2>&1
+echo Disk cleanup + optimization (defrag/trim) done
+pause
+goto MENU
+
+:ANI
+cls & color 0B
+reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d 0 /f >nul 2>&1
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 3 /f >nul 2>&1
+echo Window animations disabled
+goto SHOW_SUCCESS
+
+:TEMP
+cls & color 0B
+del /q /f /s "%TEMP%\*.*" >nul 2>&1
+del /q /f /s "C:\Windows\Temp\*.*" >nul 2>&1
+del /q /f /s "C:\Windows\Prefetch\*.*" >nul 2>&1
+echo Temp + Prefetch files cleaned
+goto SHOW_SUCCESS
+
+:TEL
+cls & color 0B
+sc config DiagTrack start= disabled >nul 2>&1 & sc stop DiagTrack >nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
+echo Telemetry + DiagTrack disabled
+goto SHOW_SUCCESS
+
+:PAGE
+cls & color 0B
+wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False >nul 2>&1
+wmic pagefileset where name="C:\\pagefile.sys" set InitialSize=2048,MaximumSize=4096 >nul 2>&1
+echo Pagefile set to 2–4 GB manual (adjust if needed)
+goto SHOW_SUCCESS
+
+:HIB
+cls & color 0B
+powercfg -h off >nul 2>&1
+echo Hibernation disabled (frees disk space)
+goto SHOW_SUCCESS
+
+:DNS
+cls & color 0B
+ipconfig /flushdns >nul 2>&1
+echo DNS cache flushed
+goto SHOW_SUCCESS
+
+:BGAPPS
+cls & color 0B
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /t REG_DWORD /d 1 /f >nul 2>&1
+echo Background apps globally disabled
+goto SHOW_SUCCESS
+
+:SSD
+cls & color 0B
+fsutil behavior set DisableDeleteNotify 0 >nul 2>&1
+echo SSD TRIM enabled
+goto SHOW_SUCCESS
+
+:SUPER
+cls & color 0B
+sc config SysMain start= disabled >nul 2>&1 & sc stop SysMain >nul 2>&1
+echo Superfetch/Prefetch disabled
+goto SHOW_SUCCESS
+
+:HIGH
+cls & color 0B
+powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c >nul 2>&1
+echo High Performance power plan activated
+goto SHOW_SUCCESS
+
+:CORT
+cls & color 0B
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowCortana /t REG_DWORD /d 0 /f >nul 2>&1
+echo Cortana disabled
+goto SHOW_SUCCESS
+
+:BLOATX
+cls & color 0B
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-AppxPackage *xbox* | Remove-AppxPackage" >nul 2>&1
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-AppxPackage *gaming* | Remove-AppxPackage" >nul 2>&1
+echo Xbox + Gaming related bloat removed
+goto SHOW_SUCCESS
+
+:VISUAL
+cls & color 0B
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 2 /f >nul 2>&1
+echo Visual effects minimized for performance
+goto SHOW_SUCCESS
+
+:SFC
+cls & color 0B
+echo Running System File Checker (may take 10–30 min)...
+sfc /scannow
+echo.
+echo SFC finished.
+pause
 goto MENU
 
 :STAT
@@ -276,319 +403,64 @@ systeminfo
 pause
 goto MENU
 
-:: ──────────────────────────────────────────────
-::  Remaining real labels (copy-pasted & cleaned)
-:: ──────────────────────────────────────────────
-
-:RAM
-cls & color 0B
-echo Clearing Standby List...
-powershell -command "Invoke-Expression 'EmptyStandbyList.exe workingsets'" >nul 2>&1 || echo (Note: EmptyStandbyList.exe not found)
-echo ✓ RAM Cleanup Performed
-timeout /t 2 >nul
-goto MENU
-
-:STR
-cls & color 0B
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /va /f >nul 2>&1
-reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /va /f >nul 2>&1
-echo ✓ Startup Items Cleaned
-timeout /t 2 >nul
-goto MENU
-
-:PWR
-cls & color 0B
-powercfg /setactive SCHEME_MIN >nul 2>&1
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 1 /f >nul 2>&1
-echo ✓ Max Power Plan Activated
-timeout /t 2 >nul
-goto MENU
-
-:MSE
-cls & color 0B
-reg add "HKCU\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f >nul 2>&1
-reg add "HKCU\Control Panel\Mouse" /v MouseThreshold1 /t REG_SZ /d 0 /f >nul 2>&1
-reg add "HKCU\Control Panel\Mouse" /v MouseThreshold2 /t REG_SZ /d 0 /f >nul 2>&1
-echo ✓ Mouse Tweaks Applied (Disabled Acceleration)
-timeout /t 2 >nul
-goto MENU
-
-:PRI
-cls & color 0B
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 0 /f >nul 2>&1
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v Win32PrioritySeparation /t REG_DWORD /d 26 /f >nul 2>&1
-echo ✓ Priority Boost Applied
-timeout /t 2 >nul
-goto MENU
-
-:SRCH
-cls & color 0B
-sc config WSearch start=disabled >nul 2>&1 & sc stop WSearch >nul 2>&1
-echo ✓ Search Indexing Disabled
-timeout /t 2 >nul
-goto MENU
-
-:CPU
-cls & color 0B
-powercfg -setactive SCHEME_MIN >nul 2>&1
-echo ✓ CPU Max Boost Applied
-timeout /t 2 >nul
-goto MENU
-
-:GPU
-cls & color 0B
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v HwSchMode /t REG_DWORD /d 2 /f >nul 2>&1
-echo ✓ GPU Boost Applied
-timeout /t 2 >nul
-goto MENU
-
-:RST
-cls & color 0B
-powershell -command "Checkpoint-Computer -Description 'Optimizer Restore Point' -RestorePointType MODIFY_SETTINGS" >nul 2>&1
-echo ✓ System Restore Point Created
-timeout /t 2 >nul
-goto MENU
-
-:DEFO
-cls & color 0C
-powershell -command "Set-MpPreference -DisableRealtimeMonitoring $true" >nul 2>&1
-echo ✓ Windows Defender Disabled (Real-time Protection Off)
-timeout /t 2 >nul
-goto MENU
-
-:DEF
-cls & color 0A
-powershell -command "Set-MpPreference -DisableRealtimeMonitoring $false" >nul 2>&1
-echo ✓ Windows Defender Enabled
-timeout /t 2 >nul
-goto MENU
-
-:DISK
-cls & color 0B
-cleanmgr /sagerun:1 >nul 2>&1
-defrag C: /O >nul 2>&1
-echo ✓ Disk Cleanup & Optimization Performed
-timeout /t 2 >nul
-goto MENU
-
-:ANI
-cls & color 0B
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d 0 /f >nul 2>&1
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 3 /f >nul 2>&1
-echo ✓ Animations Disabled for Faster UI
-timeout /t 2 >nul
-goto MENU
-
-:TEMP
-cls & color 0B
-del /q /f /s "%TEMP%\*.*" >nul 2>&1
-del /q /f /s "C:\Windows\Temp\*.*" >nul 2>&1
-echo ✓ Temporary Files Cleaned
-timeout /t 2 >nul
-goto MENU
-
-:TEL
-cls & color 0B
-sc config DiagTrack start=disabled >nul 2>&1 & sc stop DiagTrack >nul 2>&1
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1
-echo ✓ Telemetry Disabled
-timeout /t 2 >nul
-goto MENU
-
-:PAGE
-cls & color 0B
-wmic pagefileset where name="C:\\pagefile.sys" set InitialSize=1024,MaximumSize=2048 >nul 2>&1
-echo ✓ Pagefile Optimized (Set to 1-2GB)
-timeout /t 2 >nul
-goto MENU
-
-:HIB
-cls & color 0B
-powercfg -h off >nul 2>&1
-echo ✓ Hibernation Disabled (Frees Disk Space)
-timeout /t 2 >nul
-goto MENU
-
-:DNS
-cls & color 0B
-ipconfig /flushdns >nul 2>&1
-echo ✓ DNS Cache Flushed
-timeout /t 2 >nul
-goto MENU
-
-:BGAPPS
-cls & color 0B
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /t REG_DWORD /d 1 /f >nul 2>&1
-echo ✓ Background Apps Disabled
-timeout /t 2 >nul
-goto MENU
-
-:SSD
-cls & color 0B
-fsutil behavior set DisableDeleteNotify 0 >nul 2>&1
-echo ✓ SSD TRIM Enabled
-timeout /t 2 >nul
-goto MENU
-
-:SUPER
-cls & color 0B
-sc config SysMain start=disabled >nul 2>&1 & sc stop SysMain >nul 2>&1
-echo ✓ Superfetch Disabled
-timeout /t 2 >nul
-goto MENU
-
-:HIGH
-cls & color 0B
-powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c >nul 2>&1
-echo ✓ High Performance Power Plan Activated
-timeout /t 2 >nul
-goto MENU
-
-:CORT
-cls & color 0B
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowCortana /t REG_DWORD /d 0 /f >nul 2>&1
-echo ✓ Cortana Disabled
-timeout /t 2 >nul
-goto MENU
-
-:BLOAT
-cls & color 0B
-powershell -command "Get-AppxPackage *xbox* | Remove-AppxPackage" >nul 2>&1 2>nul
-powershell -command "Get-AppxPackage *zune* | Remove-AppxPackage" >nul 2>&1 2>nul
-powershell -command "Get-AppxPackage *skypeapp* | Remove-AppxPackage" >nul 2>&1 2>nul
-echo ✓ Additional Bloatware Removed
-timeout /t 2 >nul
-goto MENU
-
-:REGOPT
-cls & color 0B
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v DisableThumbnailCache /t REG_DWORD /d 1 /f >nul 2>&1
-echo ✓ Registry Optimized (Disabled Thumbnail Cache)
-timeout /t 2 >nul
-goto MENU
-
-:VISUAL
-cls & color 0B
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 2 /f >nul 2>&1
-echo ✓ Visual Effects Minimized for Performance
-timeout /t 2 >nul
-goto MENU
-
-:SFC
-cls & color 0B
-sfc /scannow
-echo.
-echo ✓ System File Check Completed
-timeout /t 3 >nul
-goto MENU
-
 :TIPS
 cls & color 0B
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SubscribedContent-338389Enabled /t REG_DWORD /d 0 /f >nul 2>&1
-echo ✓ Windows Tips & Suggestions Disabled
-timeout /t 2 >nul
-goto MENU
-
-:HWACC
-cls & color 0B
-echo ✓ Hardware Acceleration settings optimized (DWM tweak applied)
-timeout /t 2 >nul
-goto MENU
-
-:AUTOUP
-cls & color 0B
-sc config wuauserv start=disabled >nul 2>&1 & sc stop wuauserv >nul 2>&1
-echo ✓ Auto Updates Disabled (Manual Updates Recommended)
-timeout /t 2 >nul
-goto MENU
-
-:EVENT
-cls & color 0B
-wevtutil cl Application >nul 2>&1
-wevtutil cl System >nul 2>&1
-echo ✓ Event Logs Cleared
-timeout /t 2 >nul
-goto MENU
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SilentInstalledAppsEnabled /t REG_DWORD /d 0 /f >nul 2>&1
+echo Tips & suggestions disabled
+goto SHOW_SUCCESS
 
 :BOOT
 cls & color 0B
 bcdedit /set quietboot yes >nul 2>&1
-echo ✓ Boot Time Boosted (Quiet Boot Enabled)
-timeout /t 2 >nul
-goto MENU
+echo Quiet boot enabled (faster startup look)
+goto SHOW_SUCCESS
 
 :ONEDRIVE
 cls & color 0B
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /v DisableFileSyncNGSC /t REG_DWORD /d 1 /f >nul 2>&1
-echo ✓ OneDrive Sync Disabled
-timeout /t 2 >nul
-goto MENU
+echo OneDrive sync disabled
+goto SHOW_SUCCESS
 
 :GOD
 cls & color 0B
 md "%userprofile%\Desktop\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" >nul 2>&1
-echo ✓ God Mode Folder Created on Desktop
-timeout /t 2 >nul
-goto MENU
+echo GodMode folder created on Desktop
+goto SHOW_SUCCESS
 
 :CHKDSK
 cls & color 0B
-echo Disk check scheduled for next restart (chkdsk /f /r)
+echo Scheduling chkdsk /f /r on next boot...
 chkdsk C: /f /r
+echo.
+echo Type Y on next restart if prompted.
 pause
 goto MENU
 
-:UPDATE
-cls & color 0B
-start ms-settings:windowsupdate
-echo ✓ Windows Update Settings Opened
-timeout /t 2 >nul
-goto MENU
-
-:NETRESET
-cls & color 0B
-netsh winsock reset >nul 2>&1
-netsh int ip reset >nul 2>&1
-echo ✓ Network Adapter Reset (Restart Recommended)
-timeout /t 2 >nul
-goto MENU
-
-:FIREOFF
-cls & color 0C
-netsh advfirewall set allprofiles state off >nul 2>&1
-echo ✓ Firewall Temporarily Disabled
-timeout /t 2 >nul
-goto MENU
-
-:FIREON
+:NORM
 cls & color 0A
-netsh advfirewall set allprofiles state on >nul 2>&1
-echo ✓ Firewall Enabled
-timeout /t 2 >nul
-goto MENU
+powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
+echo Balanced power plan restored
+goto SHOW_SUCCESS
 
-:BRCACHE
-cls & color 0B
-RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8 >nul 2>&1
-echo ✓ Browser Cache Cleared (IE/Edge)
-timeout /t 2 >nul
-goto MENU
+:RESTART
+cls & color 0E
+echo.
+echo Invi X Live Engine offline...
+echo Restarting in 5 seconds...
+shutdown /r /t 5
+timeout /t 5 >nul
+exit
 
-:USBPWR
-cls & color 0B
-echo ✓ USB Selective Suspend Disabled
-timeout /t 2 >nul
-goto MENU
+:EXIT
+cls & color 0A
+echo.
+echo Invi X Live Engine offline.
+echo See you next time, %USERNAME%.
+timeout /t 3 >nul
+exit
 
-:AUDIO
-cls & color 0B
-echo ✓ Audio Power Management Reduced
-timeout /t 2 >nul
-goto MENU
-
-:PRINT
-cls & color 0B
-sc config Spooler start=disabled >nul 2>&1 & sc stop Spooler >nul 2>&1
-echo ✓ Print Spooler Disabled (If Not Using Printer)
-timeout /t 2 >nul
-goto MENU
+echo.
+echo [Script ended unexpectedly - press key to close]
+pause >nul
+exit

@@ -1,104 +1,101 @@
 @echo off
-:: =====================================================
-:: INVIX LIVE V1 – FINAL STABLE BUILD
-:: PowerShell + CMD Compatible | No Auto-Close | Admin Safe
-:: =====================================================
 
-:: ---------- FORCE CMD (SAFE) ----------
-if defined PSModulePath (
-    cmd /k "%~f0"
-    exit /b
-)
+:: ================= FORCE CMD (IF RUN FROM POWERSHELL) =================
+if defined PSModulePath cmd /k "%~f0" & exit /b
 
-:: ---------- INIT ----------
 setlocal EnableExtensions EnableDelayedExpansion
-chcp 65001 >nul
-title INVIX LIVE – CORE ENGINE V1
+title INVIX LIVE - START ENGINE
 color 0A
 mode con cols=120 lines=35
 
-:: ---------- ADMIN CHECK ----------
+:: ================= ADMIN CHECK =================
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     cls
-    color 0C
-    echo ======================================================
-    echo   ERROR: ADMINISTRATOR PRIVILEGES REQUIRED
-    echo ======================================================
-    echo   Please run PowerShell or CMD as ADMIN.
-    echo ======================================================
+    echo [ERROR] ADMINISTRATOR PRIVILEGES REQUIRED
     pause
     exit /b
 )
 
-:: ---------- BOOT SEQUENCE ----------
+:: ================= BOOT ANIMATION =================
 cls
-echo ======================================================
-echo            INVIX LIVE CORE ENGINE
-echo ======================================================
-echo Initializing kernel...
+echo ======================================================================
+echo INVIX LIVE - CORE ENGINE v2.1 [BOOT SEQUENCE]
+echo ======================================================================
+echo Initializing kernel bridge...
 timeout /t 1 >nul
+
+set "BAR="
+for /l %%i in (1,1,30) do (
+    set "BAR=!BAR!█"
+)
+echo !BAR!
 echo Loading modules...
 timeout /t 1 >nul
-echo Verifying system...
+echo Checking system integrity...
 timeout /t 1 >nul
 echo Status : OK
 timeout /t 1 >nul
 
-:: ---------- AUTH ----------
+:: ================= AUTHENTICATION =================
 :LOGIN
 cls
 color 0A
-echo ======================================================
-echo              AUTHENTICATION GATE
-echo ======================================================
+echo ======================================================================
+echo AUTHENTICATION GATEWAY
+echo ======================================================================
 set "PASS="
 set /p PASS=ENTER ACCESS KEY ^> 
 
 if /I "%PASS%"=="inviX2026" goto AUTH_OK
 
-:: ---- FAIL ----
+:: ---- FAILED ----
 color 0C
 cls
-echo ACCESS DENIED
-echo Invalid access key.
+echo [ ACCESS DENIED ]
+echo Reason : INVALID KEY
 timeout /t 2 >nul
 goto LOGIN
 
 :: ---- SUCCESS ----
 :AUTH_OK
-color 0A
 cls
-echo ACCESS GRANTED
-echo Privilege Level : ADMIN
-echo Engine Status  : ONLINE
+color 0A
+echo [ ACCESS GRANTED ]
+echo Privilege Level : ROOT
+echo Engine Status : ONLINE
 timeout /t 2 >nul
 
-:: ---------- MAIN ----------
+:: ================= ENGINE READY =================
 cls
-echo ======================================================
-echo           INVIX LIVE ENGINE READY
-echo ======================================================
-echo USER : %USERNAME%
+echo ======================================================================
+echo INVIX LIVE ENGINE ONLINE
+echo ======================================================================
+echo User : %USERNAME%
 echo PC   : %COMPUTERNAME%
-echo ======================================================
 echo.
-echo Press ENTER to continue...
+echo Press any key to ENTER MAIN MODULE
 pause >nul
 
-:: ===== CALL YOUR MAIN TOOL HERE =====
+:: ================= MAIN =================
+:: Place your main menu or call to optimizer below
+:: For example:
 :: call InvixLive_Optimizer.bat
 
-:: ---------- EXIT ----------
+goto EXIT_ENGINE
+
+:: ================= EXIT ENGINE =================
+:EXIT_ENGINE
 cls
 color 0E
-echo ======================================================
-echo           ENGINE SHUTDOWN
-echo ======================================================
-echo Cleaning up...
+echo ======================================================================
+echo INVIX LIVE ENGINE OFFLINE
+echo ======================================================================
+echo Shutting down modules...
 timeout /t 1 >nul
-echo Done.
-echo.
-echo Press any key to exit...
+echo Releasing kernel hooks...
+timeout /t 1 >nul
+echo Session terminated safely.
+timeout /t 1 >nul
 pause >nul
 exit

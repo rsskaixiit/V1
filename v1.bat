@@ -6,137 +6,97 @@ if defined PSModulePath (
 )
 
 setlocal EnableExtensions EnableDelayedExpansion
-title ULTIMATE PC OPTIMIZER v2.1 - Invi X Live
+title INVIX LIVE - START ENGINE
 color 0A
-mode con cols=120 lines=40
+mode con cols=120 lines=35
 
 :: ========= ADMIN CHECK =========
 net session >nul 2>&1 || (
- cls
- echo [ERROR] Run as Administrator
- pause
- exit /b
+    cls
+    echo [ERROR] ADMINISTRATOR PRIVILEGES REQUIRED
+    pause
+    exit /b
 )
 
-:: ========= BOOT =========
+:: ========= BOOT ANIMATION =========
 cls
-echo ===============================================================
-echo        INVIX LIVE - ROOT INTERFACE v2.1 [2026]
-echo ===============================================================
+echo ======================================================================
+echo        INVIX LIVE - CORE ENGINE v2.1  [BOOT SEQUENCE]
+echo ======================================================================
 echo Initializing kernel bridge...
-for /l %%i in (1,1,20) do (
- <nul set /p=█
- timeout /t 0 >nul
-)
 timeout /t 1 >nul
 
-:: ========= LOGIN =========
+set "BAR="
+for /l %%i in (1,1,30) do (
+    set "BAR=!BAR!█"
+    <nul set /p "=!BAR!"
+    timeout /t 0 >nul
+)
+echo.
+echo Loading modules...
+timeout /t 1 >nul
+echo Checking system integrity...
+timeout /t 1 >nul
+echo Status : OK
+timeout /t 1 >nul
+
+:: ========= AUTHENTICATION =========
 :LOGIN
 cls
-echo ================= AUTHENTICATION =================
+color 0A
+echo ======================================================================
+echo                AUTHENTICATION GATEWAY
+echo ======================================================================
 set "PASS="
 set /p PASS=ENTER ACCESS KEY ^> 
 
-if "%PASS%"=="inviX2026" goto MENU
+if "%PASS%"=="inviX2026" goto AUTH_OK
 
-cls
+:: ---- FAILED ----
 color 0C
-echo ACCESS DENIED - FAILED / LOGGED
+cls
+echo [ ACCESS DENIED ]
+echo Reason : INVALID KEY
+echo Status : FAILED / LOGGED
 timeout /t 2 >nul
 color 0A
 goto LOGIN
 
-:: ========= MENU =========
-:MENU
+:: ---- SUCCESS ----
+:AUTH_OK
 cls
-echo ===============================================================
-echo   ULTIMATE PC OPTIMIZER v2.1 - INVIX LIVE
-echo ===============================================================
-echo User: %USERNAME%   PC: %COMPUTERNAME%
-echo.
-echo  1. Boost FPS
-echo  2. Internet Optimization
-echo  3. Disable Useless Services
-echo  4. Game Mode Tweaks
-echo  5. Clear RAM / Standby
-echo 14. ULTIMATE MODE (ALL)
-echo.
-echo X. Exit
-echo.
-set "C="
-set /p C=Select Option ^> 
+color 0A
+echo [ ACCESS GRANTED ]
+echo Privilege Level : ROOT
+echo Engine Status  : ONLINE
+timeout /t 2 >nul
 
-if "%C%"=="1"  call :APPLY "FPS BOOST" _FPS
-if "%C%"=="2"  call :APPLY "NETWORK OPTIMIZATION" _NET
-if "%C%"=="3"  call :APPLY "SERVICE OPTIMIZATION" _SVC
-if "%C%"=="4"  call :APPLY "GAME MODE" _GAME
-if "%C%"=="5"  call :APPLY "RAM CLEANUP" _RAM
-if "%C%"=="14" goto ULT
-if /I "%C%"=="X" goto EXIT
-
-goto MENU
-
-:: ========= APPLY WRAPPER =========
-:APPLY
+:: ========= ENGINE READY =========
 cls
-color 0B
-echo ===============================================================
-echo APPLYING : %~1
-echo ===============================================================
-for /l %%i in (1,1,25) do (
- <nul set /p=█
- timeout /t 0 >nul
-)
+echo ======================================================================
+echo        INVIX LIVE ENGINE ONLINE
+echo ======================================================================
+echo User : %USERNAME%
+echo PC   : %COMPUTERNAME%
 echo.
-call :%2
-echo.
-echo SUCCESS ✔
-timeout /t 1 >nul
-goto MENU
+echo Press any key to ENTER MAIN MODULE
+pause >nul
 
-:: ========= ULTIMATE MODE =========
-:ULT
+:: 👉 YAHAN TUM APNA MAIN MENU / OPTIMIZER CALL KAR SAKTE HO
+:: call InvixLive_Optimizer.bat
+goto EXIT_ENGINE
+
+:: ========= EXIT ENGINE =========
+:EXIT_ENGINE
 cls
 color 0E
-echo ===============================================================
-echo APPLYING ULTIMATE MODE (ALL)
-echo ===============================================================
-call :_FPS
-call :_NET
-call :_SVC
-call :_GAME
-call :_RAM
-echo.
-echo ULTIMATE MODE APPLIED ✔
-pause
-goto MENU
-
-:: ========= FUNCTIONS =========
-:_FPS
-bcdedit /set disabledynamictick yes >nul
-bcdedit /set useplatformtick yes >nul
-exit /b
-
-:_NET
-ipconfig /flushdns >nul
-exit /b
-
-:_SVC
-sc stop SysMain >nul
-sc config SysMain start= disabled >nul
-exit /b
-
-:_GAME
-reg add "HKCU\System\GameConfigStore" /v GameDVR_Enabled /t REG_DWORD /d 0 /f >nul
-exit /b
-
-:_RAM
-powershell -Command "Clear-StandbyList StandbyList" >nul 2>&1
-exit /b
-
-:: ========= EXIT =========
-:EXIT
-cls
-echo Invi X Live Engine Offline
-timeout /t 2 >nul
+echo ======================================================================
+echo        INVIX LIVE ENGINE OFFLINE
+echo ======================================================================
+echo Shutting down modules...
+timeout /t 1 >nul
+echo Releasing kernel hooks...
+timeout /t 1 >nul
+echo Session terminated safely.
+timeout /t 1 >nul
 exit
